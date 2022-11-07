@@ -46,7 +46,6 @@ nose
 pip-chill
 pipreqs
 prompt-toolkit
-psycopg2
 pyasn1
 pyasn1-modules
 pyOpenSSL
