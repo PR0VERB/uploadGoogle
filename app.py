@@ -65,8 +65,11 @@ else:
     creds = None
     # retreive folder id of the appropriate metro & indicator
         # for some reason, the below works without the .FolderID.values[0]
-    folder_id = drive_directory_df[(drive_directory_df.Metro == metro_selected) & (drive_directory_df.Indicator == indicator_selected)].FolderID.values[0] 
     
+    try:
+        folder_id = drive_directory_df[(drive_directory_df.Metro == metro_selected) & (drive_directory_df.Indicator == indicator_selected)].FolderID.values[0] 
+    except:
+        pass
     if os.path.exists("token.json"): #if the token exists 
         creds = Credentials.from_authorized_user_file("token.json", SCOPES)
         
