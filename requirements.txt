@@ -120,3 +120,4 @@ yarg
 zipp
 zope.event
 zope.interface
+twisted-iocpsupport
