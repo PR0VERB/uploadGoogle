@@ -34,7 +34,7 @@ if enter_email not in stake_addresses:
 else:
     st.write('Email verified')
 
-    drive_directory_df = pd.read_excel('G:/My Drive/GOOGLEDRIVE_CODE/DATA/GoogleDriveIndicatorMetroFolderID.xlsx', sheet_name='main')
+    drive_directory_df = pd.read_excel('DATA/GoogleDriveIndicatorMetroFolderID.xlsx', sheet_name='main')
     # metro list
     metros = list(drive_directory_df.Metro.unique())
     metros.insert(0,'Make a Selection')
