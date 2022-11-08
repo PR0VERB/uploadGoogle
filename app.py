@@ -23,7 +23,7 @@ from googleapiclient.http import MediaFileUpload
 
 # initialise stakeholder dataframe
 
-stake_df= pd.read_excel('G:/My Drive/GOOGLEDRIVE_CODE/DATA/stakes_df.xlsx')
+stake_df= pd.read_excel('G:DATA/stakes_df.xlsx')
 stake_addresses = list(stake_df['Email Address'])
 
 # verify email
