@@ -1,1 +1,1 @@
-web: sh setup.sh && streamlit run uploadGoogle.py
+web: sh setup.sh && streamlit run uploadToGoogle.py
