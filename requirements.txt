@@ -71,7 +71,6 @@ pip-chill==1.0.1
 pipreqs==0.4.11
 prompt-toolkit==3.0.28
 protobuf==3.20.3
-psycopg2==2.9.3
 pyarrow==10.0.0
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
