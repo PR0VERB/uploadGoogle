@@ -1,6 +1,6 @@
-google_api_python_client==2.65.0
-google_auth_oauthlib==0.7.1
-pandas==1.5.1
-Pillow==9.3.0
-protobuf==4.21.9
-streamlit==1.14.0
+google_api_python_client
+google_auth_oauthlib
+pandas
+Pillow
+protobuf
+streamlit
