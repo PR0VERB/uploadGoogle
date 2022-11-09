@@ -6,7 +6,7 @@ import pandas as pd
 import time
 import datetime
 import streamlit.components.v1 as components
-from PIL import Image
+# from PIL import Image
 
 ######################### Import UPLOADING Libraries ####################
 # https://www.youtube.com/watch?v=fkWM7A-MxR0
@@ -66,10 +66,9 @@ else:
     # retreive folder id of the appropriate metro & indicator
         # for some reason, the below works without the .FolderID.values[0]
     
-    try:
+    if indicator_selected is not None:
         folder_id = drive_directory_df[(drive_directory_df.Metro == metro_selected) & (drive_directory_df.Indicator == indicator_selected)].FolderID.values[0] 
-    except:
-        pass
+
     if os.path.exists("token.json"): #if the token exists 
         creds = Credentials.from_authorized_user_file("token.json", SCOPES)
         
@@ -93,9 +92,11 @@ else:
         #### temporary solution to upload since we are using google drive and not an actual database ####
         
         # 1. get the current working directory
-        file_dir = os.getcwd()
+        # file_dir = os.getcwd()
+        file_dir = "DATA/"
         # 2. append current working directory to the file name
-        file_path = os.path.join(file_dir,uploaded_file.name)
+        # file_path = os.path.join(file_dir,uploaded_file.name)
+        file_path = f"{file_dir}uploaded_file.name"
         # 3. take the dataframe to excel and save to file directory 
         df_.to_excel(file_path)
         del df_
