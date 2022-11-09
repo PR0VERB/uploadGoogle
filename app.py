@@ -45,11 +45,11 @@ else:
     metro_selected = st.selectbox("Select a metro", tuple(metros),)
     if metro_selected != 'Make a Selection':
         indicator_selected = st.selectbox("Select an indicator", tuple(indicators))
-    
-        uploaded_file = st.file_uploader("Choose an xlsx or csv file")
-        print("UPLOADED FILE ##############################", uploaded_file)
-        
-        folder_id = drive_directory_df[(drive_directory_df.Metro == metro_selected) & (drive_directory_df.Indicator == indicator_selected)].FolderID.values[0]
+        if indicator_selected != 'Make a Selection':
+            uploaded_file = st.file_uploader("Choose an xlsx or csv file")
+            print("UPLOADED FILE ##############################", uploaded_file)
+            #assign the corresponding folder id
+            folder_id = drive_directory_df[(drive_directory_df.Metro == metro_selected) & (drive_directory_df.Indicator == indicator_selected)].FolderID.values[0]
 
     # TODO: make file type agnostic
     def chosen_sheet(uploaded_file: str):
