@@ -36,6 +36,32 @@ else:
 
     drive_directory_df = pd.read_excel('DATA/GoogleDriveIndicatorMetroFolderID.xlsx', sheet_name='main')
     # metro list
+    # metros = list(drive_directory_df.Metro.unique())
+    # metros.insert(0,'Make a Selection')
+    # # indicator list
+    # indicators = list(drive_directory_df.Indicator.unique())
+    # indicators.insert(0,'Make a Selection')
+
+    # metro_selected = st.selectbox("Select a metro", tuple(metros),)
+    # if metro_selected != 'Make a Selection':
+    #     indicator_selected = st.selectbox("Select an indicator", tuple(indicators))
+    #     if indicator_selected != 'Make a Selection':
+    #         uploaded_file = st.file_uploader("Choose an xlsx or csv file")
+    #         if uploaded_file is not None:
+    #             def chosen_sheet(uploaded_file: str):
+    #                 return pd.read_excel(uploaded_file,sheet_name = 'Sheet1')
+    #             df_ = chosen_sheet(uploaded_file)
+    #         print("UPLOADED FILE ##############################", uploaded_file)
+    #         #assign the corresponding folder id
+    #         folder_id = drive_directory_df[(drive_directory_df.Metro == metro_selected) & (drive_directory_df.Indicator == indicator_selected)].FolderID.values[0]
+
+    # # TODO: make file type agnostic
+
+
+    # #TODO Columns validation 
+
+    # # if uploaded_file is not None:
+    # #     df_ = chosen_sheet(uploaded_file)
     metros = list(drive_directory_df.Metro.unique())
     metros.insert(0,'Make a Selection')
     # indicator list
@@ -45,23 +71,18 @@ else:
     metro_selected = st.selectbox("Select a metro", tuple(metros),)
     if metro_selected != 'Make a Selection':
         indicator_selected = st.selectbox("Select an indicator", tuple(indicators))
-        if indicator_selected != 'Make a Selection':
-            uploaded_file = st.file_uploader("Choose an xlsx or csv file")
-            if uploaded_file is not None:
-                def chosen_sheet(uploaded_file: str):
-                    return pd.read_excel(uploaded_file,sheet_name = 'Sheet1')
-                df_ = chosen_sheet(uploaded_file)
-            print("UPLOADED FILE ##############################", uploaded_file)
-            #assign the corresponding folder id
-            folder_id = drive_directory_df[(drive_directory_df.Metro == metro_selected) & (drive_directory_df.Indicator == indicator_selected)].FolderID.values[0]
+    
+    uploaded_file = st.file_uploader("Choose an xlsx or csv file")
+    print("UPLOADED FILE ##############################", uploaded_file)
 
     # TODO: make file type agnostic
-
+    def chosen_sheet(uploaded_file: str):
+       return pd.read_excel(uploaded_file,sheet_name = 'Sheet1')
 
     #TODO Columns validation 
 
-    # if uploaded_file is not None:
-    #     df_ = chosen_sheet(uploaded_file)
+    if uploaded_file is not None:
+        df_ = chosen_sheet(uploaded_file)
         
                                                             ######################### UPLOADING #########################
 
