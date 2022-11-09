@@ -48,6 +48,8 @@ else:
     
         uploaded_file = st.file_uploader("Choose an xlsx or csv file")
         print("UPLOADED FILE ##############################", uploaded_file)
+        
+        folder_id = drive_directory_df[(drive_directory_df.Metro == metro_selected) & (drive_directory_df.Indicator == indicator_selected)].FolderID.values[0]
 
     # TODO: make file type agnostic
     def chosen_sheet(uploaded_file: str):
@@ -64,10 +66,7 @@ else:
 
     creds = None
     # retreive folder id of the appropriate metro & indicator
-        # for some reason, the below works without the .FolderID.values[0]
-    
-    if indicator_selected is not None:
-        folder_id = drive_directory_df[(drive_directory_df.Metro == metro_selected) & (drive_directory_df.Indicator == indicator_selected)].FolderID.values[0] 
+        # for some reason, the below works without the .FolderID.values[0] 
 
     if os.path.exists("token.json"): #if the token exists 
         creds = Credentials.from_authorized_user_file("token.json", SCOPES)
