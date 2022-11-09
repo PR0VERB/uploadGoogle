@@ -6,7 +6,7 @@ import pandas as pd
 import time
 import datetime
 import streamlit.components.v1 as components
-from PIL import Image
+# from PIL import Image
 
 ######################### Import UPLOADING Libraries ####################
 # https://www.youtube.com/watch?v=fkWM7A-MxR0
@@ -45,18 +45,23 @@ else:
     metro_selected = st.selectbox("Select a metro", tuple(metros),)
     if metro_selected != 'Make a Selection':
         indicator_selected = st.selectbox("Select an indicator", tuple(indicators))
-    
-    uploaded_file = st.file_uploader("Choose an xlsx or csv file")
-    print("UPLOADED FILE ##############################", uploaded_file)
+        if indicator_selected != 'Make a Selection':
+            uploaded_file = st.file_uploader("Choose an xlsx or csv file")
+            if uploaded_file is not None:
+                def chosen_sheet(uploaded_file: str):
+                    return pd.read_excel(uploaded_file,sheet_name = 'Sheet1')
+                df_ = chosen_sheet(uploaded_file)
+            print("UPLOADED FILE ##############################", uploaded_file)
+            #assign the corresponding folder id
+            folder_id = drive_directory_df[(drive_directory_df.Metro == metro_selected) & (drive_directory_df.Indicator == indicator_selected)].FolderID.values[0]
 
     # TODO: make file type agnostic
-    def chosen_sheet(uploaded_file: str):
-       return pd.read_excel(uploaded_file,sheet_name = 'Sheet1')
+
 
     #TODO Columns validation 
 
-    if uploaded_file is not None:
-        df_ = chosen_sheet(uploaded_file)
+    # if uploaded_file is not None:
+    #     df_ = chosen_sheet(uploaded_file)
         
                                                             ######################### UPLOADING #########################
 
@@ -64,9 +69,8 @@ else:
 
     creds = None
     # retreive folder id of the appropriate metro & indicator
-        # for some reason, the below works without the .FolderID.values[0]
-    folder_id = drive_directory_df[(drive_directory_df.Metro == metro_selected) & (drive_directory_df.Indicator == indicator_selected)].FolderID.values[0] 
-    
+        # for some reason, the below works without the .FolderID.values[0] 
+
     if os.path.exists("token.json"): #if the token exists 
         creds = Credentials.from_authorized_user_file("token.json", SCOPES)
         
@@ -77,7 +81,7 @@ else:
         else:
             # create app flow from credentials file 
             flow = InstalledAppFlow.from_client_secrets_file(
-                "credentials.json", SCOPES)
+                "web_credentials.json", SCOPES)
             # run
             
             creds = flow.run_local_server(port=0)
@@ -90,9 +94,11 @@ else:
         #### temporary solution to upload since we are using google drive and not an actual database ####
         
         # 1. get the current working directory
-        file_dir = os.getcwd()
+        # file_dir = os.getcwd()
+        file_dir = "DATA/"
         # 2. append current working directory to the file name
-        file_path = os.path.join(file_dir,uploaded_file.name)
+        # file_path = os.path.join(file_dir,uploaded_file.name)
+        file_path = f"{file_dir}uploaded_file.name"
         # 3. take the dataframe to excel and save to file directory 
         df_.to_excel(file_path)
         del df_
